@@ -76,6 +76,7 @@ class G4INCLXXInterfaceMessenger : public G4UImessenger
     G4UIcmdWithADoubleAndUnit *cascadeMinEnergyPerNucleonCmd;
     G4UIcmdWithAString *inclPhysicsCmd;
     G4UIcommand *useAblaCmd;
+    G4UIcommand *useNucDeExCmd;
 };
 
 #endif

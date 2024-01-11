@@ -100,6 +100,12 @@ G4INCLXXInterfaceMessenger::G4INCLXXInterfaceMessenger(G4INCLXXInterfaceStore *a
   useAblaCmd = new G4UIcommand((theUIDirectory + "useAbla").data(),this);
   useAblaCmd->SetGuidance("Use ABLA++ as de-excitation model after INCL++.");
   useAblaCmd->AvailableForStates(G4State_Idle);
+
+  // This command allows the user to change the de-excitation model to be used
+  // with INCL++
+  useNucDeExCmd = new G4UIcommand((theUIDirectory + "useNucDeEx").data(),this);
+  useNucDeExCmd->SetGuidance("Use NucDeEx as de-excitation model after INCL++.");
+  useNucDeExCmd->AvailableForStates(G4State_Idle);
 }
 
 G4INCLXXInterfaceMessenger::~G4INCLXXInterfaceMessenger() {
@@ -109,6 +115,7 @@ G4INCLXXInterfaceMessenger::~G4INCLXXInterfaceMessenger() {
   delete cascadeMinEnergyPerNucleonCmd;
   delete inclPhysicsCmd;
   delete useAblaCmd;
+  delete useNucDeExCmd;
 }
 
 void G4INCLXXInterfaceMessenger::SetNewValue(G4UIcommand *command, G4String newValues) {
@@ -129,5 +136,7 @@ void G4INCLXXInterfaceMessenger::SetNewValue(G4UIcommand *command, G4String newV
     theINCLXXInterfaceStore->SetINCLPhysics(newValues);
   } else if(command==useAblaCmd) {
     theINCLXXInterfaceStore->UseAblaDeExcitation();
+  } else if(command==useNucDeExCmd) {
+    theINCLXXInterfaceStore->UseNucDeExDeExcitation();
   }
 }

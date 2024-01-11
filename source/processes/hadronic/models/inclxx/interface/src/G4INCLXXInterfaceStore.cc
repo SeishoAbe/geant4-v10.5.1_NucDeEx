@@ -51,6 +51,7 @@
 #include "G4INCLXXInterface.hh"
 #include "G4INCLConfig.hh"
 #include "G4AblaInterface.hh"
+#include "G4NucDeExInterface.hh"
 #include <vector>
 
 G4ThreadLocal G4INCLXXInterfaceStore *G4INCLXXInterfaceStore::theInstance = NULL;
@@ -259,6 +260,26 @@ void G4INCLXXInterfaceStore::UseAblaDeExcitation() {
       // Couple INCL++ to ABLA
       G4cout << "Coupling INCLXX to ABLA" << G4endl;
       theINCLInterface->SetDeExcitation(theAblaInterface);
+    }
+  }
+}
+
+void G4INCLXXInterfaceStore::UseNucDeExDeExcitation() {
+  // Get hold of pointers to the INCL++ model interfaces
+  std::vector<G4HadronicInteraction *> const &interactions = G4HadronicInteractionRegistry::Instance()
+    ->FindAllModels(G4INCLXXInterfaceStore::GetInstance()->getINCLXXVersionName());
+  for(std::vector<G4HadronicInteraction *>::const_iterator iInter=interactions.begin(), e=interactions.end();
+      iInter!=e; ++iInter) {
+    G4INCLXXInterface *theINCLInterface = dynamic_cast<G4INCLXXInterface*>(*iInter);
+    if(theINCLInterface) {
+      // Instantiate the NucDeEx model
+      G4HadronicInteraction *interaction = G4HadronicInteractionRegistry::Instance()->FindModel("NucDeEx");
+      G4NucDeExInterface *theNucDeExInterface = dynamic_cast<G4NucDeExInterface*>(interaction);
+      if(!theNucDeExInterface)
+        theNucDeExInterface = new G4NucDeExInterface;
+      // Couple INCL++ to NucDeEx
+      G4cout << "Coupling INCLXX to NucDeEx" << G4endl;
+      theINCLInterface->SetDeExcitation(theNucDeExInterface);
     }
   }
 }

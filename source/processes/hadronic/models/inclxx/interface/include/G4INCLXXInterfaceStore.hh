@@ -150,6 +150,9 @@ class G4INCLXXInterfaceStore {
     /// \brief Set ABLA V3 to be the de-excitation model to be used with INCL++
     void UseAblaDeExcitation();
 
+    /// \brief Set NucDeEx to be the de-excitation model to be used with INCL++
+    void UseNucDeExDeExcitation();
+
   private:
 
     /** \brief Private constructor
