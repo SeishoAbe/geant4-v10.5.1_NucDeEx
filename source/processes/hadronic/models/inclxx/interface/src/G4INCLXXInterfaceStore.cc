@@ -52,6 +52,7 @@
 #include "G4INCLConfig.hh"
 #include "G4AblaInterface.hh"
 #include "G4NucDeExInterface.hh"
+#include "G4VPreCompoundModel.hh"
 #include <vector>
 
 G4ThreadLocal G4INCLXXInterfaceStore *G4INCLXXInterfaceStore::theInstance = NULL;
@@ -275,8 +276,12 @@ void G4INCLXXInterfaceStore::UseNucDeExDeExcitation() {
       // Instantiate the NucDeEx model
       G4HadronicInteraction *interaction = G4HadronicInteractionRegistry::Instance()->FindModel("NucDeEx");
       G4NucDeExInterface *theNucDeExInterface = dynamic_cast<G4NucDeExInterface*>(interaction);
-      if(!theNucDeExInterface)
-        theNucDeExInterface = new G4NucDeExInterface;
+      if(!theNucDeExInterface){
+        G4HadronicInteraction* p = G4HadronicInteractionRegistry::Instance()->FindModel("PRECO");
+        G4VPreCompoundModel* ptr = static_cast<G4VPreCompoundModel*>(p);
+        if(ptr) theNucDeExInterface = new G4NucDeExInterface(ptr);
+        else theNucDeExInterface = new G4NucDeExInterface;
+      }
       // Couple INCL++ to NucDeEx
       G4cout << "Coupling INCLXX to NucDeEx" << G4endl;
       theINCLInterface->SetDeExcitation(theNucDeExInterface);
