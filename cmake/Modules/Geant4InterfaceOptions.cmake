@@ -338,12 +338,5 @@ if(WIN32)
   endif()
 endif()
 
-#if(GEANT4_USE_ROOT)
-find_package(ROOT 5.20 REQUIRED QUIET)
-GEANT4_ADD_FEATURE(GEANT4_USE_XM "Build Geant4 with Xm Support")
-set(ROOT_LIBRARIES ${ROOT_LIBRARIES})
-set(ROOT_INCLUDE_DIR ${ROOT_INCLUDE_DIR})
-#endif()
-
 # - and we're done...
 
