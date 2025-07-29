@@ -1,3 +1,0 @@
-[submodule "source/processes/hadronic/models/NucDeEx"]
-	path = source/processes/hadronic/models/nucdeex
-	url = git@github.com:SeishoAbe/NucDeEx.git
