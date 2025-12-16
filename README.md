@@ -2,7 +2,7 @@
 
 This Geant4 source code coupled with NucDeEx is NOT an official distribution. This software is distributed under the original Geant4 license.
 
-If you use this code, **please always cite the following three papers** as well as Geant4 paper.
+If you use this code, **please always cite the following three papers, as well as Geant4 paper**.
 ```
 @article{2v9j-ncf4,
   title = {Benchmarks and applications of the nuclear deexcitation event generator nucdeex},
